@@ -6,13 +6,17 @@
 
 
 * TODOS 
-
-**** TODO scanner le document et le mettre dans le github
-
 **** TODO trouver les requêtes à faire sur le [[http://fr.dbpedia.org/sparql][endpoint de dbpedia]]
 
 **** TODO revoir l'entrée de nom, surtout si on doit se logger sur google    
 **** TODO commencer à coder héhé
+
+
+* DONE
+
+**** DONE scanner le document et le mettre dans le github
+     CLOSED: [2016-10-12 mer. 16:41]
+
 
 * RESOURCES
 
