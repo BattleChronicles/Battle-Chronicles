@@ -1,0 +1,14 @@
+# Cette requête sort les batailles comprenant toutes les informations qu'il nous faut. (limité par les batailles où y a l'information de victoire dans le résultat) (sur http://dbpedia.org/sparql)
+
+select distinct ?MilitaryConflict, ?isPartOfMilitaryConflict, ?result, ?combatant, ?commander, ?date, ?lat, ?long
+where {
+?MilitaryConflict a <http://dbpedia.org/ontology/MilitaryConflict>;
+dbo:isPartOfMilitaryConflict ?isPartOfMilitaryConflict;
+dbo:result ?result;
+dbo:combatant ?combatant;
+dbo:commander ?commander;
+dbo:date ?date;
+geo:lat ?lat;
+geo:long ?long.
+FILTER regex(?result, "[vV]ictory") 
+} LIMIT 10000
