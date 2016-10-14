@@ -12,3 +12,21 @@ geo:lat ?lat;
 geo:long ?long.
 FILTER regex(?result, "[vV]ictory") 
 } LIMIT 10000
+
+
+
+# Cette requête sort les batailles comprenant toutes les informations qu'il nous faut. en concatenant les belligerants et les commandants (sur http://dbpedia.org/sparql)
+
+select distinct ?MilitaryConflict ?isPartOfMilitaryConflict ?result (group_concat(distinct ?combatant;separator=" | ") as ?combatants) (group_concat(distinct ?commander;separator=" | ") as ?commanders) ?date ?lat ?long
+where {
+?MilitaryConflict a <http://dbpedia.org/ontology/MilitaryConflict>;
+dbo:isPartOfMilitaryConflict ?isPartOfMilitaryConflict;
+dbo:result ?result;
+dbo:combatant ?combatant;
+dbo:commander ?commander;
+dbo:date ?date;
+geo:lat ?lat;
+geo:long ?long.
+}
+group by ?MilitaryConflict ?isPartOfMilitaryConflict ?result ?date ?lat ?long
+LIMIT 10000
