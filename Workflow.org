@@ -1,0 +1,41 @@
+* TIMELINE
+
+** 1ere scéance [2016-10-12 mer.]
+
+- On a le document de ce qu'on veut faire
+
+
+* TODOS 
+**** TODO trouver les requêtes à faire sur le [[http://fr.dbpedia.org/sparql][endpoint de dbpedia]]
+
+**** TODO revoir l'entrée de nom, surtout si on doit se logger sur google    
+**** TODO commencer à coder héhé
+
+
+* DONE
+
+**** DONE scanner le document et le mettre dans le github
+     CLOSED: [2016-10-12 mer. 16:41]
+
+
+* RESOURCES
+
+** Slides shaping up with angular js
+
+[[http://courseware.codeschool.com/shaping-up-with-angular-js/Slides/level01-05.pdf]]
+
+
+** Using plunker
+
+[[https://plnkr.co]]
+
+
+** Javascript courses
+
+[[https://github.com/fmdkdd/javascript-courses]]
+
+** Pad
+
+[[http://pad.univ-nantes.fr/editor/p/g.9iKsuPvrRbzOMb4q$Projet_Web_Cloud]]
+
+
