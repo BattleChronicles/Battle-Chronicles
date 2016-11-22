@@ -13,12 +13,12 @@
   
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/battlemind/greet</url-pattern>
+    <url-pattern>/battlechronicles/greet</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>BattleMind.html</welcome-file>
+    <welcome-file>BattleChronicles.html</welcome-file>
   </welcome-file-list>
 
 </web-app>
