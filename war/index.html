@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app="appName" ng-controller="MainController">
+    <head>
+        <title>Connection</title>
+
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-google-gapi/dist/angular-google-gapi.min.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+
+        <br/>
+        <br/>
+
+        <button ng-click="login()" ng-show="!user">Sign In</button>
+        <button ng-click="logout()" ng-show="user">Sign Out</button>
+
+        <br/>
+        <br/>
+
+        <div ng-show="user">
+            <p>Hi {{user.name}}!</p>
+            <img ng-src="{{user.picture}}" style="width:100px;">
+        </div>
+
+    </body>
+</html>

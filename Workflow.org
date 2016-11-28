@@ -5,10 +5,17 @@
 - On a le document de ce qu'on veut faire
 
 
-* TODOS 
+** Travail bis [2016-11-28 lun.]
+
++ Installer les dépendances avec ~bower install~ dans le répertoire war
++ Modifications à grands frais, on ne doit pas utiliser GWT (source : 1er TP)
++ On donne la liste des servlets et l'url associée dans web.xml
+
+
+* TODOS
 **** TODO trouver les requêtes à faire sur le [[http://fr.dbpedia.org/sparql][endpoint de dbpedia]]
 
-**** TODO revoir l'entrée de nom, surtout si on doit se logger sur google    
+**** TODO revoir l'entrée de nom, surtout si on doit se logger sur google
 **** TODO commencer à coder héhé
 
 
@@ -37,5 +44,3 @@
 ** Pad
 
 [[http://pad.univ-nantes.fr/editor/p/g.9iKsuPvrRbzOMb4q$Projet_Web_Cloud]]
-
-

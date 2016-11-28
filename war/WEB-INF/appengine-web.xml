@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-  <application></application>
+  <application>battle-chronicles</application>
   <version>1</version>
 
   <!--
     Allows App Engine to send multiple requests to one instance in parallel:
   -->
   <threadsafe>true</threadsafe>
-
-  <!-- Configure serving/caching of GWT files -->
-  <static-files>
-    <include path="**" />
-
-    <!-- The following line requires App Engine 1.3.2 SDK -->
-    <include path="**.nocache.*" expiration="0s" />
-
-    <include path="**.cache.*" expiration="365d" />
-    <exclude path="**.gwt.rpc" />
-  </static-files>
 
   <!-- Configure java.util.logging -->
   <system-properties>
@@ -36,7 +25,7 @@
 
     With this feature enabled, there is a very small chance your app will see
     stale session data. For details, see
-    http://code.google.com/appengine/docs/java/config/appconfig.html#Enabling_Sessions
+    https://cloud.google.com/appengine/docs/java/config/appconfig#Java_appengine_web_xml_Enabling_sessions
   -->
 
 </appengine-web-app>
