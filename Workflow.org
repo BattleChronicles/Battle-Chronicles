@@ -32,7 +32,7 @@
 **** TODO changer les couleurs dans le css des liens dans la navbar (actif et non)
 
 
-* DONE
+* DONEs
 
 **** DONE scanner le document et le mettre dans le github
      CLOSED: [2016-10-12 mer. 16:41]
