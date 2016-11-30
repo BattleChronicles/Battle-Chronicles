@@ -23,6 +23,7 @@
 					<li><a href="#" ng-click="openPage('highscores')">HighScores</a></li>
 				</ul>
 				<div class="navbar-right">
+					<a ng-show="user">Welcome, {{user.name}}</a>
 					<a class="btn btn-default navbar-btn" ng-click="login()" ng-show="!user">Sign In</a> 
 					<a class="btn btn-default navbar-btn" ng-click="logout()" ng-show="user">Sign Out</a>
 				</div>

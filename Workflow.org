@@ -17,7 +17,7 @@
 + Après la visite du professeur, on a rajouté notre partie "fake questions" pour avoir une base autour de laquelle développer
 + On doit savoir s'il faut forcément avoir l'authentification pour jouer ou si on peut aussi jouer avec un nom random (auquel cas faudra sûrement un peu check)
 + Changement des menus pour qu'on comprenne bien la différence avec le bouton de sign in
-
++ Ajout d'une indication du login (avec un message "Welcome, {{user.name}}")
 
 
 * TODOS
