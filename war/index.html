@@ -17,11 +17,15 @@
 			<div class="navbar-header">
 				<a class="navbar-brand">Battle Chronicles</a>
 			</div>
-			<div class="navbar-right">
-				<a class="btn btn-default navbar-btn" ng-click="openPage('play')">Play</a>
-				<a class="btn btn-default navbar-btn" ng-click="openPage('highscores')">HighScores</a> 
-				<a class="btn btn-default navbar-btn" ng-click="login()" ng-show="!user">Sign In</a> 
-				<a class="btn btn-default navbar-btn" ng-click="logout()" ng-show="user">Sign Out</a>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#" ng-click="openPage('play')">Play</a></li>
+					<li><a href="#" ng-click="openPage('highscores')">HighScores</a></li>
+				</ul>
+				<div class="navbar-right">
+					<a class="btn btn-default navbar-btn" ng-click="login()" ng-show="!user">Sign In</a> 
+					<a class="btn btn-default navbar-btn" ng-click="logout()" ng-show="user">Sign Out</a>
+				</div>
 			</div>
 		</div>
 	</nav>

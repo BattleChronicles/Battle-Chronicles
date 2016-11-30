@@ -12,17 +12,37 @@
 + On donne la liste des servlets et l'url associée dans web.xml
 
 
+** Journée fatidique [2016-11-30 mer.]
+
++ Après la visite du professeur, on a rajouté notre partie "fake questions" pour avoir une base autour de laquelle développer
++ On doit savoir s'il faut forcément avoir l'authentification pour jouer ou si on peut aussi jouer avec un nom random (auquel cas faudra sûrement un peu check)
++ Changement des menus pour qu'on comprenne bien la différence avec le bouton de sign in
+
+
+
 * TODOS
-**** TODO trouver les requêtes à faire sur le [[http://fr.dbpedia.org/sparql][endpoint de dbpedia]]
 
 **** TODO revoir l'entrée de nom, surtout si on doit se logger sur google
-**** TODO commencer à coder héhé
+**** TODO ajouter le scoreentity
+**** TODO ajouter les requêtes à dbpedia
+**** TODO ajouter le stockage des requête
+**** TODO ajouter une classe pour faire les requêtes régulièrement ?
+**** TODO ajouter la sélection random des questions
+**** TODO ajouter la sélection random des fausses réponses
+**** TODO changer les couleurs dans le css des liens dans la navbar (actif et non)
 
 
 * DONE
 
 **** DONE scanner le document et le mettre dans le github
      CLOSED: [2016-10-12 mer. 16:41]
+
+**** DONE trouver les requêtes à faire sur le [[http://fr.dbpedia.org/sparql][endpoint de dbpedia]]
+     CLOSED: [2016-11-30 mer. 21:28]
+**** DONE commencer à coder héhé
+     CLOSED: [2016-11-30 mer. 21:28]
+
+
 
 
 * RESOURCES
