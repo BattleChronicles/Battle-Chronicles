@@ -90,17 +90,5 @@ public class Datastore {
 		sortie.addAll(commander);
 		return sortie;
 	}
-
-	public ArrayList<String> listQuestion() {
-		ArrayList<String> questions = new ArrayList<String>();
-		questions.add("O� c'est d�roul� ");
-		questions.add("Quand c'est d�roul� ");
-		questions.add("Au cours de quelle conflit c'est d�roul� ");
-		questions.add("Qu'elles �taient les b�lligerants de ");
-		questions.add("Qui parmis ces personnes commandaient des arm�es durant ");
-		questions.add("Qu'elle fut l'issue de ");
-		return questions;
-	}
-	
 }
 

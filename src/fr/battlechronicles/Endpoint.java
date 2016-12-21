@@ -35,7 +35,7 @@ public class Endpoint {
         
 	@ApiMethod(name= "listQuestion")
 	public void listQuestion() {
-		this.datastore.listQuestion();
+		this.datastore.listReponse();
 		
 	}
 }
