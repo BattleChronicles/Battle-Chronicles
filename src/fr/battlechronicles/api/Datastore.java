@@ -91,16 +91,5 @@ public class Datastore {
 		return sortie;
 	}
 
-	public ArrayList<String> listQuestion() {
-		ArrayList<String> questions = new ArrayList<String>();
-		questions.add("Où c'est déroulé ");
-		questions.add("Quand c'est déroulé ");
-		questions.add("Au cours de quelle conflit c'est déroulé ");
-		questions.add("Qu'elles étaient les bélligerants de ");
-		questions.add("Qui parmis ces personnes commandaient des armées durant ");
-		questions.add("Qu'elle fut l'issue de ");
-		return questions;
-	}
-	
 }
 
