@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://battle-chronicles.appspot.com/_ah/api",
-  "name" : "hSEndpoint",
+  "name" : "endpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "discovery" : [ "PUBLIC" ],
@@ -24,29 +24,45 @@
     "type" : "no-cache",
     "maxAge" : 0
   },
-  "ownerDomain" : "battlechronicles",
-  "ownerName" : "battlechronicles",
-  "packagePath" : "api",
   "methods" : {
-    "hSEndpoint.highscores" : {
-      "path" : "highscores",
+    "endpoint.insertscore" : {
+      "path" : "/insertscore",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "fr.battlechronicles.api.HSEndpoint.highscores",
+      "rosyMethod" : "fr.battlechronicles.Endpoint.insertscore",
       "request" : {
         "parameters" : {
-          "cursor" : {
+          "id" : {
             "type" : "string",
-            "required" : false
+            "required" : true
           },
-          "limit" : {
+          "name" : {
+            "type" : "string",
+            "required" : true
+          },
+          "score" : {
             "type" : "int32",
-            "required" : false
+            "required" : true
           }
         },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "endpoint.gethighscores" : {
+      "path" : "/highscores",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.battlechronicles.Endpoint.gethighscores",
+      "request" : {
         "body" : "empty"
       },
       "response" : {
@@ -56,21 +72,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Score" : {
-        "id" : "CollectionResponse_Score",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Score"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "Score" : {
         "id" : "Score",
         "type" : "object",
@@ -85,12 +86,26 @@
             "type" : "integer"
           }
         }
+      },
+      "ScoreCollection" : {
+        "id" : "ScoreCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Score"
+            }
+          }
+        }
       }
     },
     "methods" : {
-      "fr.battlechronicles.api.HSEndpoint.highscores" : {
+      "fr.battlechronicles.Endpoint.insertscore" : {
+      },
+      "fr.battlechronicles.Endpoint.gethighscores" : {
         "response" : {
-          "$ref" : "CollectionResponse_Score"
+          "$ref" : "ScoreCollection"
         }
       }
     }
