@@ -1,6 +1,7 @@
 package fr.battlechronicles;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -8,6 +9,9 @@ import com.google.api.server.spi.config.Named;
 
 import fr.battlechronicles.api.Datastore;
 import fr.battlechronicles.api.Score;
+import fr.battlechronicles.question.Question;
+import fr.battlechronicles.question.Reponse;
+import jena.sparql;
 
 @Api(name = "endpoint", version = "v1")
 public class Endpoint {
@@ -37,5 +41,17 @@ public class Endpoint {
 	public void listQuestion() {
 		this.datastore.listReponse();
 		
+	}
+	
+	@ApiMethod(path="/fill")
+	public void insertQuestions(@Named("category") String category) throws Exception{
+		try {
+			Question question = new Question();
+			Servlet serv = new Servlet();
+			serv.updateDatastore();			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
