@@ -26,6 +26,12 @@ public class Endpoint {
                 Score s = new Score(id, name, score);
                 datastore.insertScore(s);
         }
-
+        //a commenter après un remplissage 
+        //(ou utiliser un truc pour remplir de temps à autre, sinon dbpedia va nous assassiner
+        
+        @ApiMethod(name= "updateDatastore")
+        public void updateDatastore() {
+        	datastore.listReponse();
+    	}
 
 }
