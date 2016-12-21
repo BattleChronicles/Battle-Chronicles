@@ -2,12 +2,20 @@ package fr.battlechronicles;
 
 import java.util.ArrayList;
 
-import fr.battlechronicles.api.Datastore;
-import fr.battlechronicles.api.Score;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
+import com.google.appengine.api.datastore.Entity;
+
+import fr.battlechronicles.api.Datastore;
+import fr.battlechronicles.api.Score;
+import fr.battlechronicles.question.GenerateurQuestion;
 
 @Api(name = "endpoint", version = "v1")
 public class Endpoint {
@@ -26,5 +34,6 @@ public class Endpoint {
                 Score s = new Score(id, name, score);
                 datastore.insertScore(s);
         }
+
 
 }

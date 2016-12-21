@@ -1,14 +1,10 @@
 package fr.battlechronicles.api;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import fr.battlechronicles.api.Score;
-import fr.battlechronicles.question.Reponse;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -16,6 +12,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+
+import fr.battlechronicles.question.Reponse;
 
 public class Datastore {
 
