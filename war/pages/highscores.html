@@ -1,0 +1,37 @@
+<div class="section">
+	<div class="container">
+		<br><br>
+		<h1 class="header center teal-text text-lighten-2">Highscores</h1>
+		<div class="card">
+        	<div class="card-content">
+
+				<div class="row">
+					<div>
+						<table class="highlight" ng-show="selectHighscore">
+							<thead>
+								<tr>
+									<th data-field="name"></th>
+									<th data-field="score"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="highscore in highscores.hs">
+									<td>{{highscore.name}}</td>
+									<td>{{highscore.score}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div ng-show="loading">
+					<br/><br/>
+					<div class="progress">
+						<div class="indeterminate"></div>
+					</div>
+					<br/><br>
+				</div>
+			</div>
+		</div>
+		<br><br>
+	</div>
+</div>

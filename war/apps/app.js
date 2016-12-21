@@ -3,63 +3,135 @@
 
 var CLIENT = '120697713163-blktasl5j3pd980em8j076mtno9c81i4.apps.googleusercontent.com';
 
-var app = angular.module('appName', [ 'angular-google-gapi', 'ngCookies' ]);
+var app = angular.module('BattleChronicles', [ 'angular-google-gapi', 'ngCookies', 'ngRoute']);
+
+var BASE = 'https://battle-chronicles.appspot.com/_ah/api'; 
 
 app.run([
+		'$rootScope',
+		'$cookies',
 		'GApi',
 		'GAuth',
-		function(GApi, GAuth) {
-			var BASE = ''; 
-			GApi.load('scoreEntityEndpoint', 'v1', BASE).then(
+		'GData',
+		function($rootScope, $cookies, GApi, GAuth, GData) {
+			
+			GApi.load('endpoint', 'v1', BASE).then(
 					function(resp) {
+						if (resp)
 						console.log('API: ' + resp.api + ', version: '
 								+ resp.version + ' loaded');
 					},
 					function(resp) {
 						console.log('An error occurred while loading API: '
 								+ resp.api + ', resp.version: ' + version);
-					});
+					}
+			);
 			GAuth.setClient(CLIENT);
 			GAuth.setScope('https://www.googleapis.com/auth/userinfo.profile');
 			GAuth.load();
-		} ]);
-
-
-//Defines the controller ; scope is the object defined for the controller to contain 
-//as attributes every variables need ; the array format for .controller() is better if we are to minify the file
-app.controller('MainController', [ '$scope', 'GApi', 'GAuth', '$cookies', 'GData',
-		function($scope, Gapi, GAuth, $cookies, GData) {
-
-			$scope.user = null;
-			$scope.page = null;
-			$scope.highscores = null;
-
+			
 			if ($cookies.get("google_id")) {
 				GData.setUserId($cookies.get("google_id"));
-
-				GAuth.checkAuth().then(function(user) {
-					$scope.user = user;
-				}, function() {
-					console.log("Failure to connect");
-				})
 			}
-
-			$scope.login = function() {
+			
+			$rootScope.login = function() {
 				GAuth.login().then(function(user) {
 					console.log(user);
-					$scope.user = user;
+					$rootScope.user = user;
 					$cookies.put("google_id", user.id);
 				}, function() {
 					console.log("Failure to connect");
 				});
 			};
 
-			$scope.logout = function() {
+			$rootScope.logout = function() {
 				GAuth.logout();
-				$scope.user = null;
+				$rootScope.user = null;
 				$cookies.remove("google_id");
 			};
 			
+	        GAuth.checkAuth().then(
+	        		function(user) {
+	        			$rootScope.user = user;
+	                    if ($rootScope.auth_callback_success)
+	                        $rootScope.auth_callback_success();
+	        		},
+	        		function() {
+	                    $rootScope.not_logged = true;
+	        			//console.log('error');
+	                    console.log('not logged in');
+	                    if ($rootScope.auth_callback_error)
+	                        $rootScope.auth_callback_error();
+	        		}
+	    );
+
+		} ]);
+
+
+
+// cf https://scotch.io/tutorials/single-page-apps-with-angularjs-routing-and-templating
+app.config(function($routeProvider) {
+	$routeProvider
+	.when("/", {
+		templateUrl: "pages/home.html",
+        controller: "MainController"
+	})
+    .when("/game", {
+        templateUrl: "pages/game.html",
+        controller: "GameController"
+    })
+    .when("/game/end", {
+        templateUrl: "pages/endgame.html",
+        controller: "EndGameController"
+    })
+    .when("/highscores", {
+        templateUrl: "pages/highscores.html",
+        controller: "HighscoresController"
+    })
+    .when("/about", {
+        templateUrl: "pages/about.html",
+        controller: "aboutController"
+    })
+});
+
+
+//Defines the controller ; scope is the object defined for the controller to contain 
+//as attributes every variables need ; the array format for .controller() is better if we are to minify the file
+
+// MainController
+app.controller('MainController', [ '$scope', '$location',
+		function($scope, $location) {
+			$scope.play = function(){
+				if (!$scope.user){
+					$scope.login(function(){
+						$location.path('/game');
+											}
+								);
+					
+				}
+				else {
+					$location.path('/game');
+					
+				}
+				
+			};
+		}
+]);
+	
+// GameController
+
+app.controller('GameController', ['$rootScope', '$scope', '$routeParams', '$location',
+    function($rootScope, $scope, $routeParams, $location) {
+	    // Redirect if refreshed
+	    if (!$routeParams.index_round ||
+	        !$routeParams.question_type ||
+	        !$rootScope.currentGame) {
+	        $location.path('/categories');
+	        return;	
+	}
+
+
+	$scope.question = function(){
 		    // Checks if the question has been answered to increase the counter of questions answered and checks wether the answer given is the expected one to increase the counter of good answers
 		    $scope.answerClick = function(index) {
 			if ($scope.question.answered === false) {
@@ -102,46 +174,52 @@ app.controller('MainController', [ '$scope', 'GApi', 'GAuth', '$cookies', 'GData
 
 			} else {
 			    $scope.insertScore({id: Math.floor(Math.random()*1000000)+1, name: $scope.questions.name, score: $scope.questions.well_answered*10});
-			    $scope.openPage('gameOver');
+			    $location.page('game/end');
 			}
 
 		    }
+	}
 
-		    $scope.openPage = function(page) {
-			$scope.page = page;
 
-			if (page == 'play') {
-			    $scope.restart();
-			} else if (page == 'highscores') {
-			    $scope.highscores = null;
-			    // Calls the listScores function in an asynchronous manner, enabling a callback (cf listScores)
-			    $scope.listScores(function(data) {
-			    	$scope.highscores = data;
-			    });
-			}
+// EndGameController
+
+app.controller('EndGameController', ['$rootScope', '$scope', '$location', 'GApi',
+	    function($rootScope, $scope, $location, GApi) {
+	
+		    GApi.execute('endpoint', 'Endpoint.insertScore', {id: $rootScope.user_id, name: $rootScope.user.name, pic: $rootScope.google_user.picture, score: $rootScope.Game.score}).then( function(resp) {
+		        $scope.loading = false;
+		    }, function() {
+		        $scope.loading = false;
+		        console.log("error :(");
+		    });
+		
+			// Redirect if refreshed
+		    if (!$rootScope.currentGame) {
+		        $location.path('/');
+		        return;
 		    }
+		}
+]);
 
-		    // Executes the GApi call then give back the answer to the function that called it 
-		    //(then (function(resp) is called if the ajax request was successful, function() if not))
-		    $scope.listScores = function(callback) {
+// HighscoresController
+
+app.controller('HighscoresController', ['$rootScope', '$scope', '$location', 'GApi',
+    function($rootScope, $scope, $location, GApi) {
+		$scope.loading = true;
+
+		// Executes the GApi call then give back the answer to the function that called it 
+		//(then (function(resp) is called if the ajax request was successful, function() if not))
+		$scope.listScores = function(callback) {
 			GApi.execute('endpoint','gethighscores').then(function(resp) {
-			    callback(resp.items);
+				callback(resp.items);
 			}, function() {
-			    console.log('Error!');
-			});
-		    }
+				console.log('Error!');
+			}
+		);
+		}
+}
 
+]);
 
-		    $scope.insertScore = function(data) {
-			GApi.execute('endpoint','insertscore',data).then(function(resp) {
-			    console.log('Good!');
-			},function(e) {
-			    console.log('Error!');
-			    console.log(e);
-			});
-		    }
-
-		    $scope.openPage('play');
-			
 
 		} ]);

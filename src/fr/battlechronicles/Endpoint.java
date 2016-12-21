@@ -9,7 +9,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 
-@Api(name = "endpoint")
+@Api(name = "endpoint", version = "v1")
 public class Endpoint {
     private Datastore datastore = new Datastore();
     

@@ -1,0 +1,40 @@
+	<div class="container">
+			<div class="row" ng-show="questions.name == null">
+			</div>
+			<div class="row" ng-show="questions.name != null">
+				<div class="col-md-6 col-md-offset-2">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3>{{question.text}}</h3>
+						</div>
+						<div class="panel-body row">
+							<div ng-repeat="answer in question.answers" class="col-md-4">
+								<button
+									class="btn center-block
+			    ng-class:{'btn-default': question.answered === false,
+			    'btn-success': (question.answered !== false && $index === question.good_answer),
+			    'btn-danger': (question.answered !== false && $index !== question.good_answer && $index === question.answered)}"
+									ng-click="answerClick($index)">{{answer}}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h4>Question
+								#{{(questions.answered+(question.answered==false?1:0))}}</h4>
+						</div>
+						<div class="panel-body">
+							<p>Good answers:
+								{{questions.well_answered}}/{{questions.answered}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<button class="col-md-2 col-md-offset-5 btn btn-info"
+					ng-show="question.answered !== false" ng-click="nextQuestion()">Next
+					question !</button>
+			</div>
+		</div>
