@@ -15,8 +15,7 @@ public class Endpoint {
     
         
         @ApiMethod(name= "gethighscores", path="/highscores")
-        public ArrayList<Score> gethighscores() {
-                
+        public ArrayList<Score> gethighscores() {               
                 return datastore.listHighscores();
         }
 

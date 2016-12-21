@@ -65,7 +65,9 @@ app.run([
 	        		}
 	    );
 
-		} ]);
+		$rootScope.Game = null;
+		}
+]);
 
 
 
@@ -76,11 +78,11 @@ app.config(function($routeProvider) {
 		templateUrl: "pages/home.html",
         controller: "MainController"
 	})
-    .when("/game", {
+    .when("/game/question/:battle_index/:question_type", {
         templateUrl: "pages/game.html",
         controller: "GameController"
     })
-    .when("/game/end", {
+    .when("/endgame", {
         templateUrl: "pages/endgame.html",
         controller: "EndGameController"
     })
@@ -104,13 +106,12 @@ app.controller('MainController', [ '$scope', '$location',
 			$scope.play = function(){
 				if (!$scope.user){
 					$scope.login(function(){
-						$location.path('/game');
+						$location.path('/game/question/0/who');
 											}
-								);
-					
+								);					
 				}
 				else {
-					$location.path('/game');
+					$location.path('/game/question/0/who');
 					
 				}
 				
@@ -120,65 +121,148 @@ app.controller('MainController', [ '$scope', '$location',
 	
 // GameController
 
-app.controller('GameController', ['$rootScope', '$scope', '$routeParams', '$location',
-    function($rootScope, $scope, $routeParams, $location) {
-	    // Redirect if refreshed
-	    if (!$routeParams.index_round ||
-	        !$routeParams.question_type ||
-	        !$rootScope.currentGame) {
-	        $location.path('/categories');
-	        return;	
-	}
+app.controller('GameController', ['$rootScope', '$scope', '$routeParams', '$location', 'GApi',
+    function($rootScope, $scope, $routeParams, $location, GApi) {
+//	    // Redirect if refreshed
+//	    if (!$routeParams.battle_index ||
+//	        !$routeParams.question_type ||
+//	        !$rootScope.game) {
+//	        $location.path('/');
+//	        return;	
+//	    }
+		var count = 3;
+	    $rootScope.game = {
+	            count: count,
+	            score: 0,
+	            battles: null
+	    };
+    
+        
+        GApi.execute('endpoint', 'Endpoint.listQuestions',{number:count}).then( function(resp) {
+            $rootScope.game.battles = resp.items;
+            console.log(resp.items);            
+		}, function() {
+            $scope.loading = false;
+			console.log("Error while loading questions:(");
+		});	
+        
+        var battle = $rootScope.game.battles[$routeParams.battle_index];
 
+        if (!battle) {
+            $location.path('/endgame');
+            return;
+        }
 
-	$scope.question = function(){
-		    // Checks if the question has been answered to increase the counter of questions answered and checks wether the answer given is the expected one to increase the counter of good answers
-		    $scope.answerClick = function(index) {
-			if ($scope.question.answered === false) {
-			    $scope.question.answered = index;
-			    $scope.questions.answered++;
-			    if($scope.question.good_answer === $scope.question.answered) {
-				$scope.questions.well_answered++;
-			    }
-			}
+        $scope.battle = battle;
+        $scope.question_type = $routeParams.question_type;
+
+        $scope.chooseAnswer = function(index) {
+            if ($scope.question.answered !== null)
+                return;
+            $scope.question.answered = index;
+            $scope.timer.stop();
+            if ($scope.question.answered === $scope.question.right_answer) {
+                $rootScope.game.score += $scope.timer.percentage*10;
+            }
+            if ($scope.question_type == 'who')
+                battle.name = $scope.question.right_answer;
+            else if ($scope.question_type == 'when')
+                battle.date = $scope.question.right_answer;
+            else if ($scope.question_type == 'where')
+                battle.location = $scope.question.right_answer;
+        };
+
+        $scope.next = function() {
+            switch($scope.question_type) {
+                case 'who':
+                    $routeParams.question_type = 'when';
+                    break;
+                case 'when':
+                    $routeParams.question_type = 'where';
+                    break;
+                case 'where':
+                    $routeParams.question_type = 'rightanswers';
+                    break;
+            }
+
+            $location.path('/game/question/'+$routeParams.battle_index+'/'+$routeParams.question_type);
+        };
+
+        $scope.nextBattle = function() {
+            $location.path('/game/question/'+(parseInt($routeParams.battle_index)+1)+'/who');
+        };
+
+        $scope.setMapPick = function(pick) {
+            $scope.map_pick = pick;
+            $scope.$apply();
+        };
+
+        // https://developers.google.com/maps/documentation/javascript/adding-a-google-map
+        $scope.initMap = function() {
+        	var center = {lat: 29, lng: -12};
+            var map = new google.maps.Map(document.getElementById("map"), {
+            		center: myCenter, 
+            		zoom: 1
+            		});
+            var infowindow = new google.maps.InfoWindow();
+            
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map                    
+		    }); //end marker
+            var distance = null;
+ 		    var p2 = new google.maps.LatLng(46.0438317, 9.75936230000002);
+            
+		    //Add listener
+		    google.maps.event.addListener(marker, "dragend", function (event) {
+			    latLng = new google.maps.LatLng(marker.position.lat(),marker.position.lng());
+		        distance = calcDistance(latLng, p2)
+		    }); //end addListener
+		   
+		    //calculates distance between two points in km's
+		    function calcDistance(p1, p2) {
+		    	return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
 		    }
+        }
 
-		    // Resets the questions attributes and shows the next question
-		    $scope.restart = function() {
+        $scope.timer = {
+            percentage: 100,
+            id: null,
+            start: function() {
+                $scope.timer.id = setInterval(function() {
+                    $scope.timer.percentage -= 2;
+                    $scope.$apply();
+                    if ($scope.timer.percentage <= 0)
+                        $scope.timer.stop(true);
+                },200);
+            },
+            stop: function(out) {
+                if ($scope.timer.id != null) {
+                    clearInterval($scope.timer.id);
+                    $scope.timer.id = null;
+                    $scope.chooseAnswer("No answer");
+                    if (out)
+                        $scope.$apply();
+                }
+            }
+        };
+	        
+        if ($scope.question_type != 'rightanswers') {
+            $scope.question = {
+                title: battle[$scope.question_type].question,
+                right_answer: battle[$scope.question_type].answers[0],
+                answers: $.randomize(battle[$scope.question_type].answers),
+                answered: null
+            };
+            $scope.timer.start();
+        }
+        if ($scope.question_type == 'where') {
+            $scope.initMap();
+        }
+}
+        
+]);
 
-				$scope.questions = {
-				    answered: 0,
-				    well_answered: 0,
-				    name: null
-				}
-
-				$scope.nextQuestion();
-		    }
-
-		    // Enables the loop for the n questions (which are all the same), open the GameOver page when done
-		    $scope.nextQuestion = function() {
-
-			if ($scope.questions.answered < 3) {
-
-			    $scope.question = {
-				text: "Which answer is correct ?",
-				answers: [
-				    "A",
-				    "B",
-				    "C",
-				    "D"
-				],
-				good_answer: Math.floor(Math.random()*4),
-				answered: false
-			    }
-
-			} else {
-			    $scope.insertScore({id: Math.floor(Math.random()*1000000)+1, name: $scope.questions.name, score: $scope.questions.well_answered*10});
-			    $location.page('game/end');
-			}
-
-		    }
-	}
 
 
 // EndGameController
@@ -186,7 +270,7 @@ app.controller('GameController', ['$rootScope', '$scope', '$routeParams', '$loca
 app.controller('EndGameController', ['$rootScope', '$scope', '$location', 'GApi',
 	    function($rootScope, $scope, $location, GApi) {
 	
-		    GApi.execute('endpoint', 'Endpoint.insertScore', {id: $rootScope.user_id, name: $rootScope.user.name, pic: $rootScope.google_user.picture, score: $rootScope.Game.score}).then( function(resp) {
+		    GApi.execute('endpoint', 'Endpoint.insertScore', {id: $rootScope.user_id, name: $rootScope.user.name, score: $rootScope.game.score}).then( function(resp) {
 		        $scope.loading = false;
 		    }, function() {
 		        $scope.loading = false;
@@ -194,7 +278,7 @@ app.controller('EndGameController', ['$rootScope', '$scope', '$location', 'GApi'
 		    });
 		
 			// Redirect if refreshed
-		    if (!$rootScope.currentGame) {
+		    if (!$rootScope.game) {
 		        $location.path('/');
 		        return;
 		    }
@@ -210,16 +294,12 @@ app.controller('HighscoresController', ['$rootScope', '$scope', '$location', 'GA
 		// Executes the GApi call then give back the answer to the function that called it 
 		//(then (function(resp) is called if the ajax request was successful, function() if not))
 		$scope.listScores = function(callback) {
-			GApi.execute('endpoint','gethighscores').then(function(resp) {
+			GApi.execute('endpoint','Endpoint.gethighscores').then(function(resp) {
 				callback(resp.items);
 			}, function() {
 				console.log('Error!');
 			}
-		);
+														);
 		}
-}
-
+	}	
 ]);
-
-
-		} ]);

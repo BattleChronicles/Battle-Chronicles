@@ -1,13 +1,10 @@
 <div class="section">
 	<div class="container">
 		<br><br>
-		<h1 class="header center teal-text text-lighten-2">Highscores</h1>
-		<div class="card">
-        	<div class="card-content">
-
+		<h1 class="header">Highscores</h1>
 				<div class="row">
 					<div>
-						<table class="highlight" ng-show="selectHighscore">
+						<table ng-show="Highscores">
 							<thead>
 								<tr>
 									<th data-field="name"></th>
@@ -22,13 +19,6 @@
 							</tbody>
 						</table>
 					</div>
-				</div>
-				<div ng-show="loading">
-					<br/><br/>
-					<div class="progress">
-						<div class="indeterminate"></div>
-					</div>
-					<br/><br>
 				</div>
 			</div>
 		</div>
