@@ -2,3 +2,8 @@ bower_components
 .settings
 .classpath
 *.class
+.classpath
+*.class
+war/WEB-INF/classes/fr/battlechronicles/question/Reponse.class
+war/WEB-INF/classes/fr/battlechronicles/question/Question.class
+war/WEB-INF/classes/fr/battlechronicles/Servlet.class

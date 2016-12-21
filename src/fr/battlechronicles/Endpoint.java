@@ -32,5 +32,10 @@ public class Endpoint {
         public void updateDatastore() {
         	datastore.listReponse();
     	}
-
+        
+	@ApiMethod(name= "listQuestion")
+	public void listQuestion() {
+		this.datastore.listQuestion();
+		
+	}
 }
