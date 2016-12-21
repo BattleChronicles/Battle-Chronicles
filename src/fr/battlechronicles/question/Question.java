@@ -9,7 +9,7 @@ public class Question {
 		this.requete = 	
 			  "PREFIX dbo: <http://dbpedia.org/ontology/>"
 			+ "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
-			+ "select distinct ?MilitaryConflict, ?isPartOfMilitaryConflict, ?result, ?combatant, ?commander, ?date, ?lat, ?long"
+			+ "select distinct ?MilitaryConflict ?isPartOfMilitaryConflict ?result (group_concat(distinct ?combatant;separator=\" | \") as ?combatants) (group_concat(distinct ?commander;separator=\" | \") as ?commanders) ?date ?lat ?long"
 			+ "where {"
 				+ "?MilitaryConflict a <http://dbpedia.org/ontology/MilitaryConflict>;"
 					+ "dbo:result ?result;"

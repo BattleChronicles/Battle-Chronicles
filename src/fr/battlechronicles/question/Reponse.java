@@ -7,21 +7,21 @@ public class Reponse {
 	private String nomBataille;
 	private String nomConflit;
 	private String result;
-	private String belligerants;
+	private List<String> belligerants;
+	private String date;
 	private Double latitude;
 	private Double longitude;
-	private String resultatBataille;
 	private List<String> commandants;
 	
-	public Reponse(String nomBataille, String nomConflit, String result, String belligerants, 
-			Double latitude, Double longitude, String resultatBataille, List<String> commandants) {
+	public Reponse(String nomBataille, String nomConflit, String result, List<String> belligerants, String date, 
+			Double latitude, Double longitude, List<String> commandants) {
 		this.nomBataille = nomBataille;
 		this.nomConflit = nomConflit;
 		this.result = result;
 		this.belligerants = belligerants;
+		this.date = date;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.resultatBataille = resultatBataille;
 		this.commandants = commandants;
 	}
 
@@ -49,11 +49,11 @@ public class Reponse {
 		this.result = result;
 	}
 
-	public String getBelligerants() {
+	public List<String> getBelligerants() {
 		return belligerants;
 	}
 
-	public void setBelligerants(String belligerants) {
+	public void setBelligerants(List<String> belligerants) {
 		this.belligerants = belligerants;
 	}
 
@@ -71,14 +71,6 @@ public class Reponse {
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
-	}
-
-	public String getResultatBataille() {
-		return resultatBataille;
-	}
-
-	public void setResultatBataille(String resultatBataille) {
-		this.resultatBataille = resultatBataille;
 	}
 
 	public List<String> getCommandants() {
