@@ -124,7 +124,7 @@ app.controller('MainController', [ '$scope', 'GApi', 'GAuth', '$cookies', 'GData
 		    // Executes the GApi call then give back the answer to the function that called it 
 		    //(then (function(resp) is called if the ajax request was successful, function() if not))
 		    $scope.listScores = function(callback) {
-			GApi.execute('scoreEntityEndpoint','listScoreEntity').then(function(resp) {
+			GApi.execute('hSEndpoint','highscores').then(function(resp) {
 			    callback(resp.items);
 			}, function() {
 			    console.log('Error!');
@@ -133,7 +133,7 @@ app.controller('MainController', [ '$scope', 'GApi', 'GAuth', '$cookies', 'GData
 
 
 		    $scope.insertScore = function(data) {
-			GApi.execute('scoreEntityEndpoint','insertScoreEntity',data).then(function(resp) {
+			GApi.execute('hSEndpoint','insertScoreEntity',data).then(function(resp) {
 			    console.log('Good!');
 			},function(e) {
 			    console.log('Error!');
