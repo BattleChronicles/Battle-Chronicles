@@ -25,6 +25,36 @@
     "maxAge" : 0
   },
   "methods" : {
+    "endpoint.updateDatastore" : {
+      "path" : "void",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.battlechronicles.Endpoint.updateDatastore",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "endpoint.gethighscores" : {
+      "path" : "/highscores",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.battlechronicles.Endpoint.gethighscores",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "endpoint.insertscore" : {
       "path" : "/insertscore",
       "httpMethod" : "POST",
@@ -52,21 +82,6 @@
       },
       "response" : {
         "body" : "empty"
-      }
-    },
-    "endpoint.gethighscores" : {
-      "path" : "/highscores",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "fr.battlechronicles.Endpoint.gethighscores",
-      "request" : {
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -101,12 +116,14 @@
       }
     },
     "methods" : {
-      "fr.battlechronicles.Endpoint.insertscore" : {
+      "fr.battlechronicles.Endpoint.updateDatastore" : {
       },
       "fr.battlechronicles.Endpoint.gethighscores" : {
         "response" : {
           "$ref" : "ScoreCollection"
         }
+      },
+      "fr.battlechronicles.Endpoint.insertscore" : {
       }
     }
   }

@@ -50,8 +50,7 @@ public class Servlet extends HttpServlet {
     	//on récup les résultats
     	ResultSet results = qexec.execSelect();
     	
-    	while (results.hasNext())
-		{
+    	while (results.hasNext()){
 			QuerySolution binding = results.nextSolution();
 
 	   		nomBataille = binding.getLiteral("MilitaryConflict");
@@ -72,15 +71,11 @@ public class Servlet extends HttpServlet {
 			p.setProperty("Date", date.toString());
 			p.setProperty("latitude", lat);
 			p.setProperty("longitude", lon);
-			p.setProperty("commandants", commandants.toString());
-			
-			
-			
+			p.setProperty("commandants", commandants.toString());	
 		
 			dataService.put(p);
 			++i;
-		}
-		
+		}	
 		qexec.close() ;
     	
     }
