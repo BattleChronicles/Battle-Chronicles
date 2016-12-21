@@ -25,6 +25,21 @@
     "maxAge" : 0
   },
   "methods" : {
+    "endpoint.updateDatastore" : {
+      "path" : "void",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.battlechronicles.Endpoint.updateDatastore",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "endpoint.insertscore" : {
       "path" : "/insertscore",
       "httpMethod" : "POST",
@@ -101,6 +116,8 @@
       }
     },
     "methods" : {
+      "fr.battlechronicles.Endpoint.updateDatastore" : {
+      },
       "fr.battlechronicles.Endpoint.insertscore" : {
       },
       "fr.battlechronicles.Endpoint.gethighscores" : {
