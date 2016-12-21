@@ -4,7 +4,7 @@
 		<h1 class="header">Highscores</h1>
 				<div class="row">
 					<div>
-						<table ng-show="Highscores">
+						<table ng-show="highscores">
 							<thead>
 								<tr>
 									<th data-field="name"></th>
@@ -12,7 +12,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="highscore in highscores.hs">
+								<tr ng-repeat="highscore in listScores">
 									<td>{{highscore.name}}</td>
 									<td>{{highscore.score}}</td>
 								</tr>

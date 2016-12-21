@@ -289,17 +289,17 @@ app.controller('EndGameController', ['$rootScope', '$scope', '$location', 'GApi'
 
 app.controller('HighscoresController', ['$rootScope', '$scope', '$location', 'GApi',
     function($rootScope, $scope, $location, GApi) {
-		$scope.loading = true;
+		$scope.highscores = true;
 
 		// Executes the GApi call then give back the answer to the function that called it 
 		//(then (function(resp) is called if the ajax request was successful, function() if not))
-		$scope.listScores = function(callback) {
-			GApi.execute('endpoint','Endpoint.gethighscores').then(function(resp) {
-				callback(resp.items);
-			}, function() {
-				console.log('Error!');
-			}
-														);
-		}
+		//$scope.listScores = function(callback) {
+//			GApi.execute('endpoint','Endpoint.gethighscores').then(function(resp) {
+//				$scope.listScores = (resp.items);
+//			}, function() {
+//				console.log('Error!');
+//			}
+													//	);
+		//}
 	}	
 ]);

@@ -40,6 +40,21 @@
         "body" : "empty"
       }
     },
+    "endpoint.listQuestion" : {
+      "path" : "listQuestion",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.battlechronicles.Endpoint.listQuestion",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "endpoint.insertscore" : {
       "path" : "/insertscore",
       "httpMethod" : "POST",
@@ -117,6 +132,8 @@
     },
     "methods" : {
       "fr.battlechronicles.Endpoint.updateDatastore" : {
+      },
+      "fr.battlechronicles.Endpoint.listQuestion" : {
       },
       "fr.battlechronicles.Endpoint.insertscore" : {
       },

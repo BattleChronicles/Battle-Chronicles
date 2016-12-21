@@ -24,11 +24,11 @@ public class Datastore {
         }
         
         public void insertScore(Score score){
-                Entity e = new Entity("Score");
-                e.setProperty("id", score.getId());
-                e.setProperty("score", score.getScore());
-                e.setProperty("name", score.getName());
-                datastore.put(e);
+                Entity entity = new Entity("Score");
+                entity.setProperty("id", score.getId());
+                entity.setProperty("score", score.getScore());
+                entity.setProperty("name", score.getName());
+                datastore.put(entity);
         }
 
         public ArrayList<Score> listHighscores() {
@@ -93,11 +93,11 @@ public class Datastore {
 
 	public ArrayList<String> listQuestion() {
 		ArrayList<String> questions = new ArrayList<String>();
-		questions.add("Où c'est déroulé ");
-		questions.add("Quand c'est déroulé ");
-		questions.add("Au cours de quelle conflit c'est déroulé ");
-		questions.add("Qu'elles étaient les bélligerants de ");
-		questions.add("Qui parmis ces personnes commandaient des armées durant ");
+		questions.add("Oï¿½ c'est dï¿½roulï¿½ ");
+		questions.add("Quand c'est dï¿½roulï¿½ ");
+		questions.add("Au cours de quelle conflit c'est dï¿½roulï¿½ ");
+		questions.add("Qu'elles ï¿½taient les bï¿½lligerants de ");
+		questions.add("Qui parmis ces personnes commandaient des armï¿½es durant ");
 		questions.add("Qu'elle fut l'issue de ");
 		return questions;
 	}
