@@ -15,7 +15,7 @@
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
   <init-param>
    <param-name>services</param-name>
-   <param-value>fr.battlechronicles.api.HSEndpoint</param-value>
+   <param-value>fr.battlechronicles.Endpoint</param-value>
   </init-param>
  </servlet>
  <servlet-mapping>
