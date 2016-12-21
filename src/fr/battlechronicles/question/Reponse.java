@@ -81,5 +81,13 @@ public class Reponse {
 		this.commandants = commandants;
 	}
 	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
 
 }
