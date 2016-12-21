@@ -25,6 +25,27 @@
     "maxAge" : 0
   },
   "methods" : {
+    "endpoint.fill" : {
+      "path" : "/fill",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.battlechronicles.Endpoint.insertQuestions",
+      "request" : {
+        "parameters" : {
+          "category" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "endpoint.updateDatastore" : {
       "path" : "void",
       "httpMethod" : "PUT",
@@ -131,6 +152,8 @@
       }
     },
     "methods" : {
+      "fr.battlechronicles.Endpoint.insertQuestions" : {
+      },
       "fr.battlechronicles.Endpoint.updateDatastore" : {
       },
       "fr.battlechronicles.Endpoint.listQuestion" : {

@@ -112,7 +112,11 @@ app.controller('MainController', [ '$scope', '$location',
 				}
 				else {
 					$location.path('/game/question/0/who');
-					
+//			        GApi.execute('endpoint', 'Endpoint.fill').then( function(resp) {
+//			            console.log(resp.items);            
+//					}, function() {
+//						console.log("Error while filling");
+//					});	
 				}
 				
 			};

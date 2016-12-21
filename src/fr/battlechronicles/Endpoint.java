@@ -43,7 +43,7 @@ public class Endpoint {
 		
 	}
 	
-	@ApiMethod(path="/fill")
+	@ApiMethod(name= "fill", path="/fill")
 	public void insertQuestions(@Named("category") String category) throws Exception{
 		try {
 			Question question = new Question();
